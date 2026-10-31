@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1d2c40"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Carla Pro">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="CARLA PRO 4.0 para iPhone. Demonstração apenas de consulta com dados fictícios.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; style-src 'self' https://accounts.google.com; img-src 'self' data: https://*.googleusercontent.com; connect-src 'self' https://accounts.google.com https://oauth2.googleapis.com https://openidconnect.googleapis.com; frame-src https://accounts.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+<title>CARLA PRO 4.0 · iPhone</title>
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./assets/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<link rel="stylesheet" href="./style.css"><script src="https://accounts.google.com/gsi/client" async defer></script><script type="module" src="./app.js"></script>
+</head>
+<body>
+<aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+ <div class="brand"><img src="./assets/icon.svg" width="48" height="48" alt=""><div><strong>CARLA CUNHA</strong><small>Gestão de aulas · 4.0</small></div></div>
+ <nav><button data-page="home" class="active"><span aria-hidden="true">⌂</span>Início</button><button data-page="lessons"><span aria-hidden="true">▦</span>Aulas</button><button data-page="students"><span aria-hidden="true">♙</span>Alunos</button><button data-page="settings"><span aria-hidden="true">⚙</span>Definições</button></nav>
+ <div class="sidebar-bottom"><span class="readonly">◉ Apenas consulta</span><p>Versão iPhone · Teste</p></div>
+</aside>
+<div class="workspace">
+ <header class="topbar"><button id="menu" class="icon-button" aria-label="Abrir menu" aria-expanded="false">☰</button><span>CARLA PRO <b>4.0</b></span><button id="theme" class="icon-button" aria-label="Ativar modo escuro">☾</button></header>
+ <main id="main">
+  <div class="heading"><div><span class="eyebrow">O TEU PAINEL DE AULAS</span><h1 id="title">Olá, Carla!</h1><p id="subtitle">Tudo organizado, onde estiveres.</p></div><span class="version">iPhone · v0.1</span></div>
+  <div class="test-banner"><span aria-hidden="true">✦</span><div><strong>Demonstração com dados fictícios</strong><small>Nenhum dado do Mac é usado nesta versão.</small></div></div>
+  <p id="notice" role="status" aria-live="polite" hidden></p>
+  <section id="login" class="login-card">
+   <div class="login-symbol" aria-hidden="true">⌂</div><h2>As aulas, sempre contigo.</h2><p>Consulta alunos, datas e valores no iPhone.<br>Entra com a tua conta Google para testar a ligação.</p>
+   <button id="google-login" class="primary">Entrar com Google</button><button id="demo-login" class="secondary">Ver demonstração fictícia</button>
+   <small>A demonstração pública contém apenas exemplos inventados.</small>
+  </section>
+  <div id="content" hidden>
+   <div class="controls" id="month-controls"><label for="month">Mês de consulta<select id="month"></select></label><label class="switch"><input id="hide-values" type="checkbox"><span>Ocultar valores</span></label></div>
+   <section id="home-view" aria-label="Resumo do mês">
+    <div class="metrics" id="metrics"></div>
+    <div class="panels"><article class="panel blue-panel"><div class="panel-top"><span class="panel-icon">⌂</span><div><h2>Aulas Presenciais</h2><p>Alunos particulares</p></div></div><div class="panel-bottom"><strong id="presencial-total"></strong><button data-type="Presencial">Consultar aulas <span>→</span></button></div></article><article class="panel violet-panel"><div class="panel-top"><span class="panel-icon">▱</span><div><h2>Aulas Online</h2><p>Centro de explicações</p></div></div><div class="panel-bottom"><strong id="online-total"></strong><button data-type="Online">Consultar aulas <span>→</span></button></div></article></div>
+    <div class="section-title"><h2>Últimas aulas</h2><button id="all-lessons" class="text-button">Ver todas →</button></div><div id="recent-list" class="list-card"></div>
+   </section>
+   <section id="lessons-view" hidden><div class="filters"><label class="search">Procurar aluno<input id="lesson-search" type="search" placeholder="Nome do aluno" autocomplete="off"></label><label>Modalidade<select id="lesson-type"><option>Todas</option><option>Presencial</option><option>Online</option></select></label></div><p id="lesson-count" class="muted"></p><div id="lesson-list" class="list-card"></div></section>
+   <section id="students-view" hidden><label class="search">Procurar aluno<input id="student-search" type="search" placeholder="Nome do aluno" autocomplete="off"></label><div id="student-list" class="student-grid"></div></section>
+   <section id="settings-view" hidden>
+    <article class="settings-card"><h2>Ligação Google</h2><p id="session-label"></p><div class="button-row"><button id="settings-login" class="primary">Entrar com Google</button><button id="logout" class="secondary" hidden>Terminar sessão</button><button id="disconnect" class="secondary" hidden>Desligar autorização Google</button></div></article>
+    <article class="settings-card"><h2>Google Drive privado</h2><p>Preparado para o mesmo ficheiro no Mac e iPhone. A leitura de ficheiros ainda está desativada.</p><p id="drive-label">Nenhum ficheiro foi lido.</p><button id="drive-consent" class="secondary" hidden>Autorizar drive.file para teste</button><small>A permissão da Google permite gerir os ficheiros escolhidos. Esta versão não lê nem altera ficheiros.</small></article>
+    <article class="settings-card"><h2>Instalar no iPhone</h2><ol><li>Abre esta página no Safari.</li><li>Toca em Partilhar.</li><li>Escolhe “Adicionar ao ecrã principal”.</li></ol><p>O modo claro/escuro fica guardado neste dispositivo.</p><small>O ecrã principal funciona offline com os exemplos. Para entrar na Google precisas de Internet.</small></article>
+   </section>
+   <footer>CARLA PRO 4.0 <span>•</span> Dados fictícios <span>•</span> Apenas consulta</footer>
+  </div>
+ </main>
+ <nav class="bottom-nav" aria-label="Navegação móvel"><button data-page="home" class="active"><span>⌂</span>Início</button><button data-page="lessons"><span>▦</span>Aulas</button><button data-page="students"><span>♙</span>Alunos</button><button data-page="settings"><span>⚙</span>Definições</button></nav>
+</div><button id="backdrop" aria-label="Fechar menu" hidden></button>
+<noscript>Ativa o JavaScript para utilizar a demonstração. Nenhum dado real é apresentado.</noscript>
+</body></html>
