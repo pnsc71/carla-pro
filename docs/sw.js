@@ -1,5 +1,5 @@
-const CACHE='carla-pro-iphone-shell-v2';
-const SHELL=['./','./index.html','./style.css','./app.js','./auth.js','./config.js','./data.js','./drive.js','./drive-test-schema.js','./manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png','./assets/apple-touch-icon.png'];
+const CACHE='carla-pro-iphone-shell-v3';
+const SHELL=['./','./index.html','./style.css','./app.js','./auth.js','./config.js','./data.js','./drive.js','./private-data.js','./drive-test-schema.js','./manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png','./assets/apple-touch-icon.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('carla-pro-iphone-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{

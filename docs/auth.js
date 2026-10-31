@@ -52,7 +52,8 @@ export async function driveTestRequest(url,options={}){
  const method=options.method||'GET';
  const read=method==='GET'&&u.origin==='https://www.googleapis.com'&&/^\/drive\/v3\/files(?:\/[A-Za-z0-9_-]+)?$/.test(u.pathname);
  const create=method==='POST'&&u.origin==='https://www.googleapis.com'&&u.pathname==='/upload/drive/v3/files'&&u.searchParams.get('uploadType')==='multipart';
- if(!read&&!create)throw new Error('Operação não permitida neste teste.');
+ const update=method==='PATCH'&&u.origin==='https://www.googleapis.com'&&/^\/upload\/drive\/v3\/files\/[A-Za-z0-9_-]+$/.test(u.pathname)&&u.searchParams.get('uploadType')==='media';
+ if(!read&&!create&&!update)throw new Error('Operação não permitida neste teste.');
  const response=await fetch(u.href,{...options,method,headers:{...options.headers,Authorization:`Bearer ${session.token}`},cache:'no-store',credentials:'omit'});
  if(response.status===401){clear();throw new Error('A sessão expirou. Entra novamente com Google.');}
  if(response.status===403)throw new Error('A Google recusou o acesso. Confirma que a Google Drive API está ativa no projeto XANITO e que autorizaste drive.file.');

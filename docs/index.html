@@ -21,7 +21,7 @@
  <header class="topbar"><button id="menu" class="icon-button" aria-label="Abrir menu" aria-expanded="false">☰</button><span>CARLA PRO <b>4.0</b></span><button id="theme" class="icon-button" aria-label="Ativar modo escuro">☾</button></header>
  <main id="main">
   <div class="heading"><div><span class="eyebrow">O TEU PAINEL DE AULAS</span><h1 id="title">Olá, Carla!</h1><p id="subtitle">Tudo organizado, onde estiveres.</p></div><span class="version">iPhone · v0.1</span></div>
-  <div class="test-banner"><span aria-hidden="true">✦</span><div><strong>Demonstração com dados fictícios</strong><small>Nenhum dado do Mac é usado nesta versão.</small></div></div>
+  <div class="test-banner" id="data-banner"><span aria-hidden="true">✦</span><div><strong>Demonstração com dados fictícios</strong><small>Nenhum dado do Mac é usado nesta versão.</small></div></div>
   <p id="notice" role="status" aria-live="polite" hidden></p>
   <section id="login" class="login-card">
    <div class="login-symbol" aria-hidden="true">⌂</div><h2>As aulas, sempre contigo.</h2><p>Consulta alunos, datas e valores no iPhone.<br>Entra com a tua conta Google para testar a ligação.</p>
@@ -39,10 +39,10 @@
    <section id="students-view" hidden><label class="search">Procurar aluno<input id="student-search" type="search" placeholder="Nome do aluno" autocomplete="off"></label><div id="student-list" class="student-grid"></div></section>
    <section id="settings-view" hidden>
     <article class="settings-card"><h2>Ligação Google</h2><p id="session-label"></p><div class="button-row"><button id="settings-login" class="primary">Entrar com Google</button><button id="logout" class="secondary" hidden>Terminar sessão</button><button id="disconnect" class="secondary" hidden>Desligar autorização Google</button></div></article>
-    <article class="settings-card"><h2>Google Drive privado</h2><p>Teste do mesmo ficheiro privado no Mac e iPhone. Apenas a amostra fictícia é aceite; os dados reais continuam desativados.</p><p id="drive-label">Nenhum ficheiro foi lido.</p><button id="drive-read" class="secondary" hidden>Ler ficheiro fictício do Drive</button><p id="drive-proof" class="proof" hidden></p><button id="drive-consent" class="secondary" hidden>Autorizar drive.file para teste</button><small>A permissão da Google permite gerir os ficheiros escolhidos. Esta aplicação só consulta a amostra fictícia; não altera ficheiros.</small></article>
+    <article class="settings-card"><h2>Google Drive privado</h2><p>Teste do mesmo ficheiro privado no Mac e iPhone. A cópia real é privada e só aparece depois de entrares na Google e pedires a leitura. A aplicação não permite editar aulas.</p><p id="drive-label">Nenhum ficheiro foi lido.</p><button id="private-read" class="primary" hidden>Ler dados reais do Drive</button><button id="drive-read" class="secondary" hidden>Ler ficheiro fictício do Drive</button><p id="drive-proof" class="proof" hidden></p><button id="drive-consent" class="secondary" hidden>Autorizar drive.file para teste</button><small>A permissão da Google permite gerir os ficheiros escolhidos. Esta aplicação só consulta a cópia; não altera ficheiros. A atualização é feita separadamente no Mac.</small></article>
     <article class="settings-card"><h2>Instalar no iPhone</h2><ol><li>Abre esta página no Safari.</li><li>Toca em Partilhar.</li><li>Escolhe “Adicionar ao ecrã principal”.</li></ol><p>O modo claro/escuro fica guardado neste dispositivo.</p><small>O ecrã principal funciona offline com os exemplos. Para entrar na Google precisas de Internet.</small></article>
    </section>
-   <footer>CARLA PRO 4.0 <span>•</span> Dados fictícios <span>•</span> Apenas consulta</footer>
+   <footer>CARLA PRO 4.0 <span>•</span> <span id="source-footer">Dados fictícios</span> <span>•</span> Apenas consulta</footer>
   </div>
  </main>
  <nav class="bottom-nav" aria-label="Navegação móvel"><button data-page="home" class="active"><span>⌂</span>Início</button><button data-page="lessons"><span>▦</span>Aulas</button><button data-page="students"><span>♙</span>Alunos</button><button data-page="settings"><span>⚙</span>Definições</button></nav>
