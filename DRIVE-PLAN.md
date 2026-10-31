@@ -32,3 +32,13 @@ A opção 1 confirma a consulta do mesmo ficheiro em dois dispositivos sem mexer
 - [Google Picker, autorização explícita e setAppId](https://developers.google.com/workspace/drive/picker/guides/web-picker)
 - [Modelo OAuth GIS no navegador, sem Client Secret](https://developers.google.com/identity/oauth2/web/guides/use-token-model)
 - [Leitura autenticada com files.get e alt=media](https://developers.google.com/workspace/drive/api/guides/manage-downloads)
+
+## Método escolhido para executar o ensaio v0.2
+
+Usar um JSON fictício criado pela própria aplicação Web, no mesmo Client ID e na mesma conta nos dois navegadores. Esta é outra via oficialmente permitida por `drive.file`, que não exige Picker. Uma página separada `preparar-teste.html`, usada no Mac, cria apenas a amostra fixa e privada, com a marca `appProperties.carlaProTest=carla-pro-cross-device-v1`. Não existe operação para partilhar nem modificar ficheiros existentes.
+
+A aplicação principal faz exclusivamente GET para encontrar essa marca/nome, e GET de conteúdo apenas após validar os metadados. Só aceita conteúdo igual ao DEMO aprovado. Mostra ID, versão e SHA-256 para a comparação nos dois dispositivos. A lista é filtrada por uma marca privada da aplicação; não é uma listagem geral do Drive.
+
+Estado: implementado e testado com respostas simuladas; falta realizar a prova com a mesma conta real nos dispositivos. Dados reais continuam bloqueados. A futura integração com Python Desktop exige validação própria; este ensaio só demonstra o acesso Web na mesma credencial, sem alterar o Mac.
+
+[Upload multipart de ficheiros criados pela aplicação](https://developers.google.com/workspace/drive/api/guides/manage-uploads) · [Propriedades privadas de ficheiros](https://developers.google.com/workspace/drive/api/guides/properties)

@@ -8,7 +8,7 @@ Aplicação web instalável, responsiva e **apenas de consulta**. O código do M
 - Consulta de aulas por mês/modalidade/aluno; alunos e preços fictícios; sem operações de edição.
 - OAuth Google Identity Services com a credencial **Web existente**, sem Client Secret.
 - Access tokens apenas em memória; logout, revogação e expiração tratados. Reentrar após fechar/recarregar é esperado.
-- Autorização incremental `drive.file` disponível em Definições após autenticar. A leitura de ficheiros está **bloqueada no código**, independentemente do consentimento.
+- Autorização incremental `drive.file` disponível em Definições após autenticar. A leitura de dados reais está **bloqueada no código**. Só a amostra fictícia exata pode ser consultada.
 - Manifest, ícones para iPhone e service worker com cache limitado à aplicação e exemplos públicos. Não guarda respostas Google, tokens ou ficheiros privados.
 - A demonstração pode ser aberta sem Google porque contém apenas dados fictícios públicos. Não é uma forma de proteger dados reais num site público.
 
@@ -45,7 +45,7 @@ No projeto Google Cloud XANITO, confirmar a credencial Web correspondente:
 - Este fluxo GIS usa uma janela OAuth, sem endpoint próprio de callback e sem Client Secret.
 - Se o ecrã de consentimento estiver em teste, incluir a conta usada como utilizador de teste. Não divulgar a conta no repositório.
 - Para autorizar `drive.file`, confirmar que a Drive API está ativa e o âmbito está declarado no consentimento.
-- Google Picker só será necessário na fase de leitura. Ainda não é carregado nem usado; a leitura está bloqueada até validar o método entre dispositivos.
+- Google Picker só será necessário na fase de leitura. Ainda não é carregado nem usado; a leitura de dados reais continua bloqueada. O ensaio usa um ficheiro fictício criado pela própria aplicação, sem Picker nem chave adicional.
 
 Não foram efetuadas alterações ao projeto Cloud nesta entrega. Uma origem não autorizada pode provocar `origin_mismatch`; não é resolvido adicionando segredos ao código.
 
@@ -69,6 +69,17 @@ Ver [DRIVE-PLAN.md](DRIVE-PLAN.md). `drive.file` não dá acesso a todos os fich
 
 O Pages aloja apenas o programa e exemplos públicos. OAuth não torna privados os ficheiros incluídos no GitHub. Não acrescentar SQLite, contactos, exportações reais, tokens ou segredos ao repositório. A foto pessoal da Carla também não foi copiada: os ícones desta versão foram desenhados para o teste.
 
-O `drive.file` permite leitura **e gestão** dos ficheiros autorizados; não existe aqui uma promessa de permissão Google estritamente só de leitura. A aplicação só de consulta é garantida pela ausência de operações de escrita; a leitura privada está ainda bloqueada.
+O `drive.file` permite leitura **e gestão** dos ficheiros autorizados; não existe aqui uma promessa de permissão Google estritamente só de leitura. A aplicação só de consulta é garantida pela ausência de operações de escrita; a leitura de dados reais continua bloqueada. O ensaio privado só aceita os exemplos fictícios exatos.
 
 Testes automatizados cobrem cálculos/filtros, meses, dados fictícios, OAuth simulado, expiração/logout/recusa de âmbito, bloqueio de leitura e limites do cache. OAuth real, configuração Cloud, publicação e instalação num iPhone exigem verificação com os serviços/dispositivo.
+
+## Teste privado entre dispositivos (v0.2)
+
+1. No navegador do Mac, abrir `https://pnsc71.github.io/carla-pro/preparar-teste.html`.
+2. Entrar na mesma conta Google usada no iPhone e autorizar `drive.file`.
+3. Carregar em **Preparar amostra fictícia privada**. Esta ferramenta separada cria apenas o JSON de exemplo, sem partilha pública; reutiliza uma amostra existente.
+4. O Mac apresenta o ID do ficheiro, versão e SHA-256. Não enviar tokens nem ficheiros de credenciais.
+5. No iPhone, atualizar a aplicação, abrir Definições, entrar/autorizá-la se necessário e tocar em **Ler ficheiro fictício do Drive**.
+6. Comparar o ID e SHA-256 apresentados nos dois dispositivos. Ambos têm de ser iguais. Isto é a prova prática, ainda pendente até testar com a conta do utilizador.
+
+A página de preparação é uma ferramenta separada, destinada ao navegador do Mac. Só cria a amostra fixa; não lê SQLite nem altera o programa instalado. A aplicação principal do iPhone continua sem operações de escrita. A leitura exige metadados próprios, MIME/limite de tamanho e igualdade exata com a amostra pública: alterações e dados externos são recusados. Nada lido do Drive é guardado no cache ou no GitHub.
