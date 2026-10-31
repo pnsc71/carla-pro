@@ -43,4 +43,20 @@ export function disconnectGoogle(){
   if(session?.token) window.google?.accounts?.oauth2?.revoke(session.token,()=>{});
   clear();
 }
-// Deliberadamente sem token exportado, chamadas files.get, listagens ou escrita no Drive.
+// Token não exportado. O transporte do ensaio é restrito aos endpoints Google definidos abaixo.
+
+// Transporte privado: token apenas no cabeçalho e apenas para endpoints Google fixos.
+export async function driveTestRequest(url,options={}){
+ if(!session?.driveGranted)throw new Error('Entra com Google e autoriza drive.file antes deste teste.');
+ const u=new URL(url);
+ const method=options.method||'GET';
+ const read=method==='GET'&&u.origin==='https://www.googleapis.com'&&/^\/drive\/v3\/files(?:\/[A-Za-z0-9_-]+)?$/.test(u.pathname);
+ const create=method==='POST'&&u.origin==='https://www.googleapis.com'&&u.pathname==='/upload/drive/v3/files'&&u.searchParams.get('uploadType')==='multipart';
+ if(!read&&!create)throw new Error('Operação não permitida neste teste.');
+ const response=await fetch(u.href,{...options,method,headers:{...options.headers,Authorization:`Bearer ${session.token}`},cache:'no-store',credentials:'omit'});
+ if(response.status===401){clear();throw new Error('A sessão expirou. Entra novamente com Google.');}
+ if(response.status===403)throw new Error('A Google recusou o acesso. Confirma que a Google Drive API está ativa no projeto XANITO e que autorizaste drive.file.');
+ if(response.status===404)throw new Error('O ficheiro não está disponível para esta conta/aplicação.');
+ if(!response.ok)throw new Error('Não foi possível concluir o teste no Drive. Tenta novamente.');
+ return response;
+}
