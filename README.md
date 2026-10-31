@@ -83,3 +83,13 @@ Testes automatizados cobrem cálculos/filtros, meses, dados fictícios, OAuth si
 6. Comparar o ID e SHA-256 apresentados nos dois dispositivos. Ambos têm de ser iguais. Isto é a prova prática, ainda pendente até testar com a conta do utilizador.
 
 A página de preparação é uma ferramenta separada, destinada ao navegador do Mac. Só cria a amostra fixa; não lê SQLite nem altera o programa instalado. A aplicação principal do iPhone continua sem operações de escrita. A leitura exige metadados próprios, MIME/limite de tamanho e igualdade exata com a amostra pública: alterações e dados externos são recusados. Nada lido do Drive é guardado no cache ou no GitHub.
+
+## Cópia privada real autorizada (fase seguinte)
+
+Depois da prova do mesmo ficheiro fictício no Mac/iPhone, foi acrescentada a consulta de uma exportação privada real, autorizada pelo utilizador. O código e a demonstração pública continuam sem nomes/contactos reais.
+
+- Exportador separado no Mac: lê a base original em modo só de leitura e produz CARLA-CONSULTA-PRIVADA.json fora deste repositório. Inclui apenas identificadores, nomes, modalidade, preço, estado ativo, aulas, datas e valores. Exclui telefones, mensagens e pagamentos. Não modifica o Streamlit nem o SQLite original.
+- Envio manual em `enviar-copia.html`: autenticar, escolher a exportação local, conferir o resumo e enviar ao Drive privado. Cria uma cópia com marca própria e, nas atualizações seguintes, substitui só o conteúdo desse mesmo ficheiro. Não altera partilhas.
+- iPhone: Definições → Ler dados reais do Drive. Só lê o ficheiro privado com a marca própria, valida o esquema e mantém o resultado em memória. O banner mostra claramente dados reais e a data da exportação. Logout/expiração eliminam a cópia em memória e regressam aos exemplos.
+- Não há sincronização automática: é necessário voltar a exportar/enviar quando houver alterações no Mac, e voltar a ler no iPhone. Não há escrita de aulas no iPhone.
+- A aplicação pública não é proteção de ficheiros do repositório: nenhum JSON real, SQLite ou ficheiro de credenciais pode entrar neste GitHub. O service worker só guarda a aplicação e exemplos públicos, nunca ficheiros Drive ou pedidos autenticados.

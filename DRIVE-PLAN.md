@@ -42,3 +42,11 @@ A aplicação principal faz exclusivamente GET para encontrar essa marca/nome, e
 Estado: implementado e testado com respostas simuladas; falta realizar a prova com a mesma conta real nos dispositivos. Dados reais continuam bloqueados. A futura integração com Python Desktop exige validação própria; este ensaio só demonstra o acesso Web na mesma credencial, sem alterar o Mac.
 
 [Upload multipart de ficheiros criados pela aplicação](https://developers.google.com/workspace/drive/api/guides/manage-uploads) · [Propriedades privadas de ficheiros](https://developers.google.com/workspace/drive/api/guides/properties)
+
+## Resultado e fase real autorizada
+
+O utilizador comprovou o mesmo ID e SHA-256 da amostra fictícia no Mac e iPhone. Essa prova valida a mesma aplicação Web/conta em dois dispositivos; não equivale a autenticar um cliente Python Desktop.
+
+A ponte escolhida para não alterar o Mac nem exigir novas credenciais é a exportação SQLite local em modo só de leitura e o envio autenticado pelo navegador Web existente. O iPhone usa apenas GET. A página de envio do Mac suporta criar a cópia privada e atualizar o seu conteúdo no mesmo ID, sem partilhar ficheiros. A autorização para nomes, aulas, datas e valores foi expressamente dada pelo utilizador; telefones, mensagens e pagamentos são rejeitados pelo esquema.
+
+Não há envio automático nem refresh token Desktop. A conta Google usada no envio é o destino; o utilizador deve usar a mesma conta no iPhone. A prova real exige enviar e conferir o número de aulas, a data de exportação e o código de comparação.
